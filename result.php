@@ -32,6 +32,16 @@
             $message = isset($_POST['yourMessage']) ? htmlspecialchars($_POST['yourMessage']) : '';
 
             $errors = [];
+            if (empty($name)) {
+                $errors[] = "Your name is required.";
+            }
+
+            if (empty($company)) {
+                $errors[] = "Company name is required.";
+            }
+            if (empty($message)) {
+                $errors[] = "Message is required.";
+            }
             if (empty($email)) {
                 $errors[] = "Email is required.";
             } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -57,12 +67,18 @@
                 echo "<p><strong>Company:</strong> $company</p>";
                 // echo "<p><strong>Message:</strong> $message</p>";
                 echo '</div>';
-                echo '</div>';             
+                echo '</div>';
             } else {
-                echo "<h1>There were errors with your submission</h1>";
+                echo '<div class="card custom-card">';
+                echo '<div class="card-header">';
+                echo "<h3>There were errors with your submission</h3>";
+                echo '</div>';
+                echo '<div class="card-body">';
                 foreach ($errors as $error) {
-                    echo "<p>$error</p>";
+                    echo "<p class='text-danger'>$error</p>";
                 }
+                echo '</div>';
+                echo '</div>';                            
             }
         } else {
             echo "No data received";
